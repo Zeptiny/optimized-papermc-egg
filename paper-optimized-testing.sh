@@ -40,32 +40,32 @@ if [ "${OPTIMIZATION_CATEGORY}" == "basic" ]; then
 echo -e "Basic Optimization Category Selected"
 	if [ ! -f server.properties ]; then
 	echo -e "Downloading Basic server.properties Optimization"
-	curl -o server.properties BASIC_SERVER.PROPERTIES_FILE
+	curl -o server.properties https://raw.githubusercontent.com/Zeptiny/optimized-papermc-egg/main/basic/server.properties
 	else
 	echo -e "A server.properties file already exists, skipping Basic Optimized server.properties download"
 	fi
 	if [ ! -f bukkit.yml ]; then
 	echo -e "Downloading Basic bukkit.yml Optimization"
-	curl -o bukkit.yml BASIC_BUKKIT_FILE
+	curl -o bukkit.yml https://raw.githubusercontent.com/Zeptiny/optimized-papermc-egg/main/basic/bukkit.yml
 	else
 	echo -e "A bukkit.yml file already exists, skipping Basic Optimized bukkit.yml download"
 	fi
 	if [ ! -f spigot.yml ]; then
 	echo -e "Downloading Basic spigot.yml Optimization"
-	curl -o spigot.yml BASIC_SPIGOT_FILE
+	curl -o spigot.yml https://raw.githubusercontent.com/Zeptiny/optimized-papermc-egg/main/basic/spigot.yml
 	else
 	echo -e "A spigot.yml file already exists, skipping Basic Optimized spigot.yml download"
 	fi
 	cd /config
 	if [ ! -f paper-global.yml ]; then
 	echo -e "Downloading Basic paper-global.yml Optimization"
-	curl -o paper-global.yml BASIC_PAPER-GLOBAL_FILE
+	curl -o paper-global.yml https://raw.githubusercontent.com/Zeptiny/optimized-papermc-egg/main/basic/config/paper-global.yml
 	else
 	echo -e "A paper-global.yml file already exists, skipping Basic Optimized paper-global.yml download"
 	fi
 	if [ ! -f paper-world-defaults.yml ]; then
 	echo -e "Downloading Basic paper-world-defaults.yml Optimization"
-	curl -o paper-world-defaults.yml BASIC_PAPER-WORLD-DEFAULTS_FILE
+	curl -o paper-world-defaults.yml https://raw.githubusercontent.com/Zeptiny/optimized-papermc-egg/main/basic/config/paper-world-defaults.yml
 	else
 	echo -e "A paper-world-defaults.yml file already exists, skipping Basic Optimized paper-world-defaults.yml download"
 	fi
