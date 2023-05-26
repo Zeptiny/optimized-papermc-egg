@@ -1,0 +1,16 @@
+spawn-limits:
+  monsters: 56
+  animals: 8
+  water-animals: 4
+  water-ambient: 15
+  water-underground-creature: 5
+  axolotls: 5
+  ambient: 1
+ticks-per:
+  animal-spawns: 400
+  monster-spawns: 15
+  water-spawns: 100
+  water-ambient-spawns: 100
+  water-underground-creature-spawns: 100
+  axolotl-spawns: 100
+  ambient-spawns: 100
