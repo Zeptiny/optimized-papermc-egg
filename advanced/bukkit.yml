@@ -1,0 +1,8 @@
+ticks-per:
+  animal-spawns: 400
+  monster-spawns: 15
+  water-spawns: 100
+  water-ambient-spawns: 100
+  water-underground-creature-spawns: 100
+  axolotl-spawns: 100
+  ambient-spawns: 100
