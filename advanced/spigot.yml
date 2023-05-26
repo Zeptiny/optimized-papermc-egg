@@ -17,7 +17,7 @@ world-settings:
       exp: 4.0
     view-distance: default
     simulation-distance: default
-    mob-spawn-range: 7
+    mob-spawn-range: 6
       tick-inactive-villagers: false
     ticks-per:
       hopper-check: 8

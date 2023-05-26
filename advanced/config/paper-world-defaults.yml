@@ -87,36 +87,36 @@ entities:
     creative-arrow-despawn-rate: default
     despawn-ranges:
       ambient:
-        hard: 96
+        hard: 64
         soft: 32
       axolotls:
-        hard: 96
+        hard: 64
         soft: 32
       creature:
-        hard: 96
+        hard: 64
         soft: 32
       misc:
-        hard: 96
+        hard: 64
         soft: 32
       monster:
-        hard: 96
+        hard: 64
         soft: 32
       underground_water_creature:
-        hard: 96
+        hard: 64
         soft: 32
       water_ambient:
         hard: 64
         soft: 32
       water_creature:
-        hard: 96
+        hard: 64
         soft: 32
     spawn-limits:
       ambient: 1
-      axolotls: 5
-      creature: 8
-      monster: 56
-      underground_water_creature: 5
-      water_ambient: 15
+      axolotls: 3
+      creature: 5
+      monster: 35
+      underground_water_creature: 3
+      water_ambient: 7
       water_creature: 4
 environment:
   treasure-maps:
@@ -133,12 +133,12 @@ misc:
   redstone-implementation: ALTERNATE_CURRENT
 spawn:
   allow-using-signs-inside-spawn-protection: false
-  keep-spawn-loaded: true
+  keep-spawn-loaded: false
   keep-spawn-loaded-range: 10
 tick-rates:
   behavior:
     villager:
       validatenearbypoi: -1
   container-update: 1
-  grass-spread: 2
+  grass-spread: 3
   mob-spawner: 1
