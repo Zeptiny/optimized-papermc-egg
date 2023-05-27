@@ -1,0 +1,85 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2023-05-26T21:12:35-03:00",
+    "name": "PaperMC Optimized",
+    "author": "me@artbenedetti.com",
+    "description": null,
+    "features": null,
+    "docker_images": {
+        "Java 17": "ghcr.io\/pterodactyl\/yolks:java_17",
+        "Java 16": "ghcr.io\/pterodactyl\/yolks:java_16",
+        "Java 11": "ghcr.io\/pterodactyl\/yolks:java_11",
+        "Java 8": "ghcr.io\/pterodactyl\/yolks:java_8"
+    },
+    "file_denylist": [],
+    "startup": "java -Xms$(({{SERVER_MEMORY}} - ({{SERVER_MEMORY}}\/5)))M -Xmx$(({{SERVER_MEMORY}} - ({{SERVER_MEMORY}}\/5)))M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https:\/\/mcflags.emc.gs -Daikars.new.flags=true -jar server.jar",
+    "config": {
+        "files": "{\r\n    \"server.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"server-ip\": \"0.0.0.0\",\r\n            \"server-port\": \"{{server.build.default.port}}\",\r\n            \"query.port\": \"{{server.build.default.port}}\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \")! For help, type \"\r\n}",
+        "logs": "{}",
+        "stop": "stop"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/ash\r\n# Paper Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\nPROJECT=paper\r\nif [ -n \"${DL_PATH}\" ]; then\r\necho -e \"Using supplied download url: ${DL_PATH}\"\r\nDOWNLOAD_URL=`eval echo $(echo ${DL_PATH} | sed -e 's\/{{\/${\/g' -e 's\/}}\/}\/g')`\r\nelse\r\nVER_EXISTS=`curl -s https:\/\/api.papermc.io\/v2\/projects\/${PROJECT} | jq -r --arg VERSION $MINECRAFT_VERSION '.versions[] | contains($VERSION)' | grep -m1 true`\r\nLATEST_VERSION=`curl -s https:\/\/api.papermc.io\/v2\/projects\/${PROJECT} | jq -r '.versions' | jq -r '.[-1]'`\r\nif [ \"${VER_EXISTS}\" == \"true\" ]; then\r\necho -e \"Version is valid. Using version ${MINECRAFT_VERSION}\"\r\nelse\r\necho -e \"Specified version not found. Defaulting to the latest ${PROJECT} version\"\r\nMINECRAFT_VERSION=${LATEST_VERSION}\r\nfi\r\nBUILD_EXISTS=`curl -s https:\/\/api.papermc.io\/v2\/projects\/${PROJECT}\/versions\/${MINECRAFT_VERSION} | jq -r --arg BUILD ${BUILD_NUMBER} '.builds[] | tostring | contains($BUILD)' | grep -m1 true`\r\nLATEST_BUILD=`curl -s https:\/\/api.papermc.io\/v2\/projects\/${PROJECT}\/versions\/${MINECRAFT_VERSION} | jq -r '.builds' | jq -r '.[-1]'`\r\nif [ \"${BUILD_EXISTS}\" == \"true\" ]; then\r\necho -e \"Build is valid for version ${MINECRAFT_VERSION}. Using build ${BUILD_NUMBER}\"\r\nelse\r\necho -e \"Using the latest ${PROJECT} build for version ${MINECRAFT_VERSION}\"\r\nBUILD_NUMBER=${LATEST_BUILD}\r\nfi\r\nJAR_NAME=${PROJECT}-${MINECRAFT_VERSION}-${BUILD_NUMBER}.jar\r\necho \"Version being downloaded\"\r\necho -e \"MC Version: ${MINECRAFT_VERSION}\"\r\necho -e \"Build: ${BUILD_NUMBER}\"\r\necho -e \"JAR Name of Build: ${JAR_NAME}\"\r\nDOWNLOAD_URL=https:\/\/api.papermc.io\/v2\/projects\/${PROJECT}\/versions\/${MINECRAFT_VERSION}\/builds\/${BUILD_NUMBER}\/downloads\/${JAR_NAME}\r\nfi\r\ncd \/mnt\/server\r\necho -e \"Running curl -o ${SERVER_JARFILE} ${DOWNLOAD_URL}\"\r\nif [ -f ${SERVER_JARFILE} ]; then\r\nmv ${SERVER_JARFILE} ${SERVER_JARFILE}.old\r\nfi\r\ncurl -o ${SERVER_JARFILE} ${DOWNLOAD_URL}\r\nif [ \"${OPTIMIZATION_CATEGORY}\" == \"basic\" ]; then\r\necho -e \"Basic Optimization Category Selected\"\r\nif [ ! -f server.properties ]; then\r\necho -e \"Downloading Basic server.properties Optimization\"\r\ncurl -o server.properties https:\/\/raw.githubusercontent.com\/Zeptiny\/optimized-papermc-egg\/main\/basic\/server.properties\r\nelse\r\necho -e \"A server.properties file already exists, skipping Basic Optimized server.properties download\"\r\nfi\r\nif [ ! -f bukkit.yml ]; then\r\necho -e \"Downloading Basic bukkit.yml Optimization\"\r\ncurl -o bukkit.yml https:\/\/raw.githubusercontent.com\/Zeptiny\/optimized-papermc-egg\/main\/basic\/bukkit.yml\r\nelse\r\necho -e \"A bukkit.yml file already exists, skipping Basic Optimized bukkit.yml download\"\r\nfi\r\nif [ ! -f spigot.yml ]; then\r\necho -e \"Downloading Basic spigot.yml Optimization\"\r\ncurl -o spigot.yml https:\/\/raw.githubusercontent.com\/Zeptiny\/optimized-papermc-egg\/main\/basic\/spigot.yml\r\nelse\r\necho -e \"A spigot.yml file already exists, skipping Basic Optimized spigot.yml download\"\r\nfi\r\ncd \/config\r\nif [ ! -f paper-global.yml ]; then\r\necho -e \"Downloading Basic paper-global.yml Optimization\"\r\ncurl -o paper-global.yml https:\/\/raw.githubusercontent.com\/Zeptiny\/optimized-papermc-egg\/main\/basic\/config\/paper-global.yml\r\nelse\r\necho -e \"A paper-global.yml file already exists, skipping Basic Optimized paper-global.yml download\"\r\nfi\r\nif [ ! -f paper-world-defaults.yml ]; then\r\necho -e \"Downloading Basic paper-world-defaults.yml Optimization\"\r\ncurl -o paper-world-defaults.yml https:\/\/raw.githubusercontent.com\/Zeptiny\/optimized-papermc-egg\/main\/basic\/config\/paper-world-defaults.yml\r\nelse\r\necho -e \"A paper-world-defaults.yml file already exists, skipping Basic Optimized paper-world-defaults.yml download\"\r\nfi\r\necho -e \"Basic Optimization Files Download Completed\"\r\nfi",
+            "container": "ghcr.io\/pterodactyl\/installers:alpine",
+            "entrypoint": "ash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Minecraft Version",
+            "description": "The version of minecraft to download. \r\n\r\nLeave at latest to always get the latest version. Invalid versions will default to latest.",
+            "env_variable": "MINECRAFT_VERSION",
+            "default_value": "latest",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Server Jar File",
+            "description": "The name of the server jarfile to run the server with.",
+            "env_variable": "SERVER_JARFILE",
+            "default_value": "server.jar",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|regex:\/^([\\w\\d._-]+)(\\.jar)$\/",
+            "field_type": "text"
+        },
+        {
+            "name": "Download Path",
+            "description": "A URL to use to download a server.jar rather than the ones in the install script. This is not user viewable.",
+            "env_variable": "DL_PATH",
+            "default_value": "",
+            "user_viewable": false,
+            "user_editable": false,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Build Number",
+            "description": "The build number for the paper release.\r\n\r\nLeave at latest to always get the latest version. Invalid versions will default to latest.",
+            "env_variable": "BUILD_NUMBER",
+            "default_value": "latest",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Optimization Category",
+            "description": "",
+            "env_variable": "OPTIMIZATION_CATEGORY",
+            "default_value": "basic",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|in:basic,advanced,complete",
+            "field_type": "text"
+        }
+    ]
+}
