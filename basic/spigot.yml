@@ -32,13 +32,13 @@ world-settings:
     mob-spawn-range: 7
     nerf-spawner-mobs: false
     entity-activation-range:
-      animals: 32
-      monsters: 32
+      animals: 24
+      monsters: 28
       raiders: 48
-      misc: 16
-      water: 16
-      villagers: 32
-      flying-monsters: 32
+      misc: 12
+      water: 12
+      villagers: 24
+      flying-monsters: 38
       wake-up-inactive:
         animals-max-per-tick: 4
         animals-every: 1200
@@ -52,18 +52,7 @@ world-settings:
         flying-monsters-max-per-tick: 8
         flying-monsters-every: 200
         flying-monsters-for: 100
-      villagers-work-immunity-after: 100
-      villagers-work-immunity-for: 20
-      villagers-active-for-panic: true
-      tick-inactive-villagers: true
       ignore-spectators: false
-    entity-tracking-range:
-      players: 48
-      animals: 48
-      monsters: 48
-      misc: 32
-      display: 128
-      other: 64
     ticks-per:
       hopper-transfer: 8
       hopper-check: 8

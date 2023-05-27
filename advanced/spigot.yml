@@ -13,11 +13,39 @@
 world-settings:
   default:
     merge-radius:
-      item: 3.5
-      exp: 4.0
+      item: 4.0
+      exp: 4.5
     view-distance: default
     simulation-distance: default
     mob-spawn-range: 6
-      tick-inactive-villagers: false
+    nerf-spawner-mobs: false
+    entity-activation-range:
+      animals: 16
+      monsters: 24
+      raiders: 48
+      misc: 8
+      water: 8
+      villagers: 20
+      flying-monsters: 42
+      wake-up-inactive:
+        animals-max-per-tick: 4
+        animals-every: 1200
+        animals-for: 100
+        monsters-max-per-tick: 8
+        monsters-every: 400
+        monsters-for: 100
+        villagers-max-per-tick: 4
+        villagers-every: 600
+        villagers-for: 100
+        flying-monsters-max-per-tick: 8
+        flying-monsters-every: 200
+        flying-monsters-for: 100
+      ignore-spectators: false
     ticks-per:
+      hopper-transfer: 8
       hopper-check: 8
+    hopper-amount: 1
+config-version: 12
+stats:
+  disable-saving: false
+  forced-stats: {}
